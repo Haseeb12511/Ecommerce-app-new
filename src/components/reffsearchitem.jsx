@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // Star component for the rating filter
 const Star = ({ filled, onClick }) => (
@@ -14,52 +14,29 @@ const Star = ({ filled, onClick }) => (
   </svg>
 );
 
-const SearchItems = ({ products, onFilter }) => {
+const SearchItems = () => {
   const [category, setCategory] = useState("Everything");
   const [searchQuery, setSearchQuery] = useState("");
   const [minStarRating, setMinStarRating] = useState(0);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    if (!products) return;
-
-    const allCategories = new Set();
-    products.forEach((p) => {
-      if (p.categories && Array.isArray(p.categories)) {
-        p.categories.forEach((cat) => allCategories.add(cat));
-      }
-    });
-    setCategories(["Everything", ...Array.from(allCategories)]);
-  }, [products]);
 
   const handleFilterProducts = () => {
-    const filtered = products.filter((product) => {
-      const avgRating =
-        product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
-          product.reviews?.length || 0;
-
-      const matchesCategory =
-        category === "Everything" || product.categories?.includes(category);
-      const matchesQuery =
-        searchQuery.trim() === "" ||
-        product.title.toLowerCase().includes(searchQuery.toLowerCase());
-
-      const roundedRating = Math.round(avgRating);
-      const matchesRating = roundedRating >= minStarRating;
-      const matchesPrice =
-        (!minPrice || product.price >= parseFloat(minPrice)) &&
-        (!maxPrice || product.price <= parseFloat(maxPrice));
-
-      return matchesCategory && matchesQuery && matchesRating && matchesPrice;
+    // Here you would typically apply the filters to your product data
+    console.log({
+      category,
+      searchQuery,
+      minStarRating,
+      minPrice,
+      maxPrice,
     });
-
-    onFilter(filtered);
+    alert(
+      "Filtering products with current selections! Check console for details."
+    );
   };
 
   return (
-    <div className="flex justify-center items-center bg-gray-100 p-0 font-sans">
+    <div className="flex justify-center items-center min-h-[0vh] bg-gray-100 p-0 font-sans">
       <div className="w-full max-w-sm bg-white p-6 rounded-2xl shadow-xl space-y-6">
         {/* Category Filter */}
         <div>
@@ -76,9 +53,11 @@ const SearchItems = ({ products, onFilter }) => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              {categories.map((cat) => (
-                <option key={cat}>{cat}</option>
-              ))}
+              <option>Everything</option>
+              <option>Electronics</option>
+              <option>Clothing</option>
+              <option>Books</option>
+              <option>Home Goods</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg
