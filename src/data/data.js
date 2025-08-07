@@ -153,6 +153,7 @@ export const Users = [
     email: "john@example.com",
     password: "password123",
     role: "admin",
+    order: [],
   },
   {
     id: 2,
@@ -160,6 +161,10 @@ export const Users = [
     email: "jane@example.com",
     password: "password456",
     role: "user",
+    order: [
+      { productId: 1, quantity: 2 },
+      { productId: 2, quantity: 1 },
+    ],
   },
   {
     id: 3,
@@ -167,6 +172,7 @@ export const Users = [
     email: "alice@example.com",
     password: "password789",
     role: "user",
+    order: [{ productId: 3, quantity: 1 }],
   },
   {
     id: 4,
@@ -174,6 +180,7 @@ export const Users = [
     email: "bob@example.com",
     password: "password101",
     role: "user",
+    order: [{ productId: 4, quantity: 1 }],
   },
   {
     id: 5,
@@ -181,5 +188,46 @@ export const Users = [
     email: "haseeb@gmail.com",
     password: "haseeb123",
     role: "user",
+    order: [],
+  },
+];
+
+export const Orders = [
+  {
+    id: 1,
+    userId: 2,
+    items: [
+      {
+        productId: 1,
+        quantity: 2,
+      },
+      {
+        productId: 2,
+        quantity: 1,
+      },
+    ],
+    totalAmount: 1200.84,
+  },
+  {
+    id: 2,
+    userId: 3,
+    items: [
+      {
+        productId: 3,
+        quantity: 1,
+      },
+    ],
+    totalAmount: 70.84,
+  },
+  {
+    id: 3,
+    userId: 4,
+    items: [
+      {
+        productId: 4,
+        quantity: 1,
+      },
+    ],
+    totalAmount: 1000.84,
   },
 ];

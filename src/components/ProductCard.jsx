@@ -83,7 +83,7 @@ const ProductCard = ({
         </button>
       </div> */}
       <div
-        className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+        className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col cursor-pointer m-3"
         onClick={handleClick}
       >
         <img src={images[0]} alt={title} className="w-full h-48 object-cover" />
