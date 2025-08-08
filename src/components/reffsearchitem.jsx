@@ -245,3 +245,74 @@ const ProductCard = ({
 };
 
 export default ProductCard;
+
+
+  // const handleFilterProducts = () => {
+  //   const filtered = products.filter((product) => {
+  //     const avgRating =
+  //       product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
+  //         product.reviews?.length || 0;
+
+  //     const matchesCategory =
+  //       category === "Everything" || product.categories?.includes(category);
+  //     const matchesQuery =
+  //       searchQuery.trim() === "" ||
+  //       product.title.toLowerCase().includes(searchQuery.toLowerCase());
+
+  //     const roundedRating = Math.round(avgRating);
+  //     const matchesRating = roundedRating >= minStarRating;
+  //     const matchesPrice =
+  //       (!minPrice || product.price >= parseFloat(minPrice)) &&
+  //       (!maxPrice || product.price <= parseFloat(maxPrice));
+
+  //     return matchesCategory && matchesQuery && matchesRating && matchesPrice;
+  //   });
+
+  //   onFilter(filtered);
+  // };
+
+  // const handleFilterProducts = () => {
+  //   // Calculate and filter
+  //   let filtered = products
+  //     .map((product) => {
+  //       const avgRating =
+  //         product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
+  //           product.reviews?.length || 0;
+  //       const roundedRating = Math.round(avgRating);
+
+  //       return {
+  //         ...product,
+  //         roundedRating, // store for sorting
+  //       };
+  //     })
+  //     .filter((product) => {
+  //       const matchesCategory =
+  //         category === "Everything" || product.categories?.includes(category);
+  //       const matchesQuery =
+  //         searchQuery.trim() === "" ||
+  //         product.title.toLowerCase().includes(searchQuery.toLowerCase());
+  //       const matchesRating = product.roundedRating >= minStarRating;
+  //       const matchesPrice =
+  //         (!minPrice || product.price >= parseFloat(minPrice)) &&
+  //         (!maxPrice || product.price <= parseFloat(maxPrice));
+
+  //       return matchesCategory && matchesQuery && matchesRating && matchesPrice;
+  //     });
+
+  //   // Sorting: exact minStarRating first, then rest by rating desc
+  //   filtered.sort((a, b) => {
+  //     if (
+  //       a.roundedRating === minStarRating &&
+  //       b.roundedRating !== minStarRating
+  //     )
+  //       return -1;
+  //     if (
+  //       b.roundedRating === minStarRating &&
+  //       a.roundedRating !== minStarRating
+  //     )
+  //       return 1;
+  //     return b.roundedRating - a.roundedRating; // fallback sort
+  //   });
+
+  //   onFilter(filtered);
+  // };

@@ -35,25 +35,40 @@ const SearchItems = ({ products, onFilter }) => {
   }, [products]);
 
   const handleFilterProducts = () => {
-    const filtered = products.filter((product) => {
-      const avgRating =
-        product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
-          product.reviews?.length || 0;
+    let filtered = products
+      .map((product) => {
+        const avgRating =
+          product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
+          (product.reviews?.length || 1);
+        const roundedRating = Math.round(avgRating);
 
-      const matchesCategory =
-        category === "Everything" || product.categories?.includes(category);
-      const matchesQuery =
-        searchQuery.trim() === "" ||
-        product.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return {
+          ...product,
+          roundedRating,
+        };
+      })
+      .filter((product) => {
+        const matchesCategory =
+          category === "Everything" || product.categories?.includes(category);
+        const matchesQuery =
+          searchQuery.trim() === "" ||
+          product.title.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesPrice =
+          (!minPrice || product.price >= parseFloat(minPrice)) &&
+          (!maxPrice || product.price <= parseFloat(maxPrice));
 
-      const roundedRating = Math.round(avgRating);
-      const matchesRating = roundedRating >= minStarRating;
-      const matchesPrice =
-        (!minPrice || product.price >= parseFloat(minPrice)) &&
-        (!maxPrice || product.price <= parseFloat(maxPrice));
+        // Yahan sirf max rating ko allow karo (minStarRating se upar wale skip)
+        return (
+          matchesCategory &&
+          matchesQuery &&
+          matchesPrice &&
+          product.roundedRating <= minStarRating && // upar wale skip
+          product.roundedRating >= 1 // 1 tak le aao
+        );
+      });
 
-      return matchesCategory && matchesQuery && matchesRating && matchesPrice;
-    });
+    // Sorting — sabse pehle selected star, phir neeche wale
+    filtered.sort((a, b) => b.roundedRating - a.roundedRating);
 
     onFilter(filtered);
   };

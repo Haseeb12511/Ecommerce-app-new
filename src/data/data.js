@@ -121,11 +121,11 @@ export const Products = [
     categories: ["Electronics", "Mobile"],
     description: "Latest smartphone with advanced features.",
     reviews: [
-      { user: "Ethan", comment: "Best smartphone I've ever used!", rating: 5 },
+      { user: "Ethan", comment: "Best smartphone I've ever used!", rating: 3 },
       {
         user: "Ava",
         comment: "Amazing camera quality and fast performance.",
-        rating: 5,
+        rating: 3,
       },
       {
         user: "Liam",
@@ -135,12 +135,12 @@ export const Products = [
       {
         user: "Emma",
         comment: "Sleek design and powerful features.",
-        rating: 5,
+        rating: 3,
       },
       {
         user: "Olivia",
         comment: "Highly recommend! Worth every penny.",
-        rating: 5,
+        rating: 3,
       },
     ],
   },
