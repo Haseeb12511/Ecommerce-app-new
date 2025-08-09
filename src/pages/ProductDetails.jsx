@@ -29,12 +29,12 @@ const ProductDetails = () => {
 
   const handleOrder = (e) => {
     e.stopPropagation(); // prevent card click
-  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  
-  if (!loggedInUser) {
-    window.location.href = "/login"; // Redirect to login if not logged in
-    return;
-  }
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (!loggedInUser) {
+      window.location.href = "/login"; // Redirect to login if not logged in
+      return;
+    }
 
     if (!product) return;
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -136,84 +136,77 @@ const ProductDetails = () => {
       </div>
 
       {/* Product Reviews Section */}
+
       <div className="mt-12 w-full max-w-5xl bg-white rounded-lg shadow-md p-6">
         <h3 className="text-2xl font-bold mb-4">Product Reviews</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Rating Breakdown */}
           <div>
-            <div className="text-4xl font-bold text-orange-500">4.5</div>
-            <p className="text-sm text-gray-500">from 1,250 reviews</p>
+            {/* Average Rating */}
+            <div className="text-4xl font-bold text-orange-500">
+              {(
+                product.reviews.reduce((sum, r) => sum + r.rating, 0) /
+                product.reviews.length
+              ).toFixed(1)}
+            </div>
+            <p className="text-sm text-gray-500">
+              from {product.reviews.length} reviews
+            </p>
+
+            {/* Star Bar Breakdown */}
             <div className="mt-4 space-y-1">
-              {[5, 4, 3, 2, 1].map((star, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span>{star}.0 ★</span>
-                  <div className="flex-1 h-2 bg-gray-200 rounded">
-                    <div
-                      className="h-full bg-orange-400 rounded"
-                      style={{ width: `${[80, 10, 5, 3, 2][i]}%` }}
-                    ></div>
+              {[5, 4, 3, 2, 1].map((star) => {
+                const count = product.reviews.filter(
+                  (r) => r.rating === star
+                ).length;
+                const percentage = (count / product.reviews.length) * 100 || 0;
+
+                return (
+                  <div key={star} className="flex items-center gap-2">
+                    <span>{star}.0 ★</span>
+                    <div className="flex-1 h-2 bg-gray-200 rounded">
+                      <div
+                        className="h-full bg-orange-400 rounded"
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                    </div>
+                    <span className="text-xs text-gray-400">{count}</span>
                   </div>
-                  <span className="text-xs text-gray-400">
-                    {[2823, 38, 4, 0, 0][i]}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
-          {/* Review Filter - Static Example */}
+          {/* Reviews List */}
           <div className="md:col-span-3">
-            <div className="flex flex-wrap gap-2 mb-4">
-              <button className="px-3 py-1 text-sm border rounded">
-                All Reviews
-              </button>
-              <button className="px-3 py-1 text-sm border rounded">
-                With Photo & Video
-              </button>
-              <button className="px-3 py-1 text-sm border rounded">
-                With Description
-              </button>
-            </div>
-
-            {[1, 2, 3, 4].map((review, index) => (
-              <div key={index} className="border-t py-4">
-                <div className="flex items-center justify-between">
+            {product.reviews.length > 0 ? (
+              product.reviews.map((review, index) => (
+                <div key={index} className="border-t py-4">
+                  {/* Rating Stars */}
                   <div className="flex items-center gap-2">
-                    {Array(5)
-                      .fill()
-                      .map((_, i) => (
-                        <span key={i}>★</span>
-                      ))}
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <span key={i} className="text-yellow-500">
+                        ★
+                      </span>
+                    ))}
+                    {Array.from({ length: 5 - review.rating }).map((_, i) => (
+                      <span key={i} className="text-gray-300">
+                        ★
+                      </span>
+                    ))}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <button className="flex items-center gap-1">
-                      👍 <span>128</span>
-                    </button>
-                    <button className="flex items-center gap-1">👎</button>
-                  </div>
-                </div>
-                <p className="mt-2 font-medium">
-                  This is amazing product I have.
-                </p>
-                <p className="text-xs text-gray-500">July 2, 2020 03:29 PM</p>
-                <p className="text-sm text-gray-700 mt-1">Darrell Steward</p>
-              </div>
-            ))}
 
-            {/* Pagination */}
-            <div className="flex justify-center gap-2 mt-6">
-              {[1, 2, 3].map((page) => (
-                <button
-                  key={page}
-                  className="px-3 py-1 border rounded text-sm hover:bg-gray-200"
-                >
-                  {page}
-                </button>
-              ))}
-              <span className="text-sm">…</span>
-              <button className="px-3 py-1 border rounded text-sm">19</button>
-            </div>
+                  {/* Review Comment */}
+                  <p className="mt-2 font-medium">{review.comment}</p>
+
+                  {/* Review User */}
+                  <p className="text-sm text-gray-700 mt-1">{review.user}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No reviews yet for this product.</p>
+            )}
           </div>
         </div>
       </div>

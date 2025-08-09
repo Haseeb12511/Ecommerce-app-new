@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import ShoppingCart from "./pages/ShoppingCart";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Orders, Products, Users } from "./data/data";
+import { Products, Users } from "./data/data";
 import ProductDetails from "./pages/ProductDetails";
 import { ToastContainer } from "react-toastify";
 import SignUp from "./pages/SignUp";
@@ -25,8 +25,6 @@ function App() {
 
     // ✅ Store full users including passwords
     localStorage.setItem("users", JSON.stringify(Users));
-
-    localStorage.setItem("orders", JSON.stringify(Orders));
   }, []);
 
   return (

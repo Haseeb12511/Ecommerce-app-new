@@ -15,9 +15,9 @@ const Star = ({ filled, onClick }) => (
 );
 
 const SearchItems = ({ products, onFilter }) => {
-  const [category, setCategory] = useState("Everything");
+  const [category, setCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [minStarRating, setMinStarRating] = useState(0);
+  const [minStarRating, setMinStarRating] = useState(5);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [categories, setCategories] = useState([]);
@@ -31,8 +31,12 @@ const SearchItems = ({ products, onFilter }) => {
         p.categories.forEach((cat) => allCategories.add(cat));
       }
     });
-    setCategories(["Everything", ...Array.from(allCategories)]);
+    setCategories(["All", ...Array.from(allCategories)]);
   }, [products]);
+
+  useEffect(() => {
+    handleFilterProducts();
+  }, [category, searchQuery, minStarRating, minPrice, maxPrice]);
 
   const handleFilterProducts = () => {
     let filtered = products
@@ -49,7 +53,7 @@ const SearchItems = ({ products, onFilter }) => {
       })
       .filter((product) => {
         const matchesCategory =
-          category === "Everything" || product.categories?.includes(category);
+          category === "All" || product.categories?.includes(category);
         const matchesQuery =
           searchQuery.trim() === "" ||
           product.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -122,22 +126,6 @@ const SearchItems = ({ products, onFilter }) => {
           />
         </div>
 
-        {/* Min Star Rating */}
-        <div>
-          <label className="block text-gray-600 text-sm mb-2">
-            Min Star Rating
-          </label>
-          <div className="flex space-x-1">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star
-                key={star}
-                filled={star <= minStarRating}
-                onClick={() => setMinStarRating(star)}
-              />
-            ))}
-          </div>
-        </div>
-
         {/* Min/Max Price */}
         <div className="flex space-x-4">
           <div className="flex-1">
@@ -174,13 +162,18 @@ const SearchItems = ({ products, onFilter }) => {
           </div>
         </div>
 
-        {/* Filter Products Button */}
-        <button
-          onClick={handleFilterProducts}
-          className="w-full py-3 px-4 bg-gray-800 text-white font-semibold rounded-xl shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 transition-colors"
-        >
-          Filter Products
-        </button>
+        {/* Min Star Rating */}
+        <div>
+          <div className="flex space-x-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star
+                key={star}
+                filled={star <= minStarRating}
+                onClick={() => setMinStarRating(star)}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

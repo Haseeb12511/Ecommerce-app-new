@@ -246,73 +246,192 @@ const ProductCard = ({
 
 export default ProductCard;
 
+///////////////////////////////////////////
+// reviews ui 
 
-  // const handleFilterProducts = () => {
-  //   const filtered = products.filter((product) => {
-  //     const avgRating =
-  //       product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
-  //         product.reviews?.length || 0;
+ {/* Product Reviews Section */}
+      <div className="mt-12 w-full max-w-5xl bg-white rounded-lg shadow-md p-6">
+        <h3 className="text-2xl font-bold mb-4">Product Reviews</h3>
 
-  //     const matchesCategory =
-  //       category === "Everything" || product.categories?.includes(category);
-  //     const matchesQuery =
-  //       searchQuery.trim() === "" ||
-  //       product.title.toLowerCase().includes(searchQuery.toLowerCase());
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {/* Rating Breakdown */}
+          <div>
+            <div className="text-4xl font-bold text-orange-500">4.5</div>
+            <p className="text-sm text-gray-500">from 1,250 reviews</p>
+            <div className="mt-4 space-y-1">
+              {[5, 4, 3, 2, 1].map((star, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <span>{star}.0 ★</span>
+                  <div className="flex-1 h-2 bg-gray-200 rounded">
+                    <div
+                      className="h-full bg-orange-400 rounded"
+                      style={{ width: `${[80, 10, 5, 3, 2][i]}%` }}
+                    ></div>
+                  </div>
+                  <span className="text-xs text-gray-400">
+                    {[2823, 38, 4, 0, 0][i]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-  //     const roundedRating = Math.round(avgRating);
-  //     const matchesRating = roundedRating >= minStarRating;
-  //     const matchesPrice =
-  //       (!minPrice || product.price >= parseFloat(minPrice)) &&
-  //       (!maxPrice || product.price <= parseFloat(maxPrice));
+          {/* Review Filter - Static Example */}
+          <div className="md:col-span-3">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <button className="px-3 py-1 text-sm border rounded">
+                All Reviews
+              </button>
+              <button className="px-3 py-1 text-sm border rounded">
+                With Photo & Video
+              </button>
+              <button className="px-3 py-1 text-sm border rounded">
+                With Description
+              </button>
+            </div>
 
-  //     return matchesCategory && matchesQuery && matchesRating && matchesPrice;
-  //   });
+            {[1, 2, 3, 4].map((review, index) => (
+              <div key={index} className="border-t py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {Array(5)
+                      .fill()
+                      .map((_, i) => (
+                        <span key={i}>★</span>
+                      ))}
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <button className="flex items-center gap-1">
+                      👍 <span>128</span>
+                    </button>
+                    <button className="flex items-center gap-1">👎</button>
+                  </div>
+                </div>
+                <p className="mt-2 font-medium">
+                  This is amazing product I have.
+                </p>
+                <p className="text-xs text-gray-500">July 2, 2020 03:29 PM</p>
+                <p className="text-sm text-gray-700 mt-1">Darrell Steward</p>
+              </div>
+            ))}
 
-  //   onFilter(filtered);
-  // };
+            {/* Pagination */}
+            <div className="flex justify-center gap-2 mt-6">
+              {[1, 2, 3].map((page) => (
+                <button
+                  key={page}
+                  className="px-3 py-1 border rounded text-sm hover:bg-gray-200"
+                >
+                  {page}
+                </button>
+              ))}
+              <span className="text-sm">…</span>
+              <button className="px-3 py-1 border rounded text-sm">19</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  // const handleFilterProducts = () => {
-  //   // Calculate and filter
-  //   let filtered = products
-  //     .map((product) => {
-  //       const avgRating =
-  //         product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
-  //           product.reviews?.length || 0;
-  //       const roundedRating = Math.round(avgRating);
 
-  //       return {
-  //         ...product,
-  //         roundedRating, // store for sorting
-  //       };
-  //     })
-  //     .filter((product) => {
-  //       const matchesCategory =
-  //         category === "Everything" || product.categories?.includes(category);
-  //       const matchesQuery =
-  //         searchQuery.trim() === "" ||
-  //         product.title.toLowerCase().includes(searchQuery.toLowerCase());
-  //       const matchesRating = product.roundedRating >= minStarRating;
-  //       const matchesPrice =
-  //         (!minPrice || product.price >= parseFloat(minPrice)) &&
-  //         (!maxPrice || product.price <= parseFloat(maxPrice));
+////////////////////////////////
 
-  //       return matchesCategory && matchesQuery && matchesRating && matchesPrice;
-  //     });
+//navbar
 
-  //   // Sorting: exact minStarRating first, then rest by rating desc
-  //   filtered.sort((a, b) => {
-  //     if (
-  //       a.roundedRating === minStarRating &&
-  //       b.roundedRating !== minStarRating
-  //     )
-  //       return -1;
-  //     if (
-  //       b.roundedRating === minStarRating &&
-  //       a.roundedRating !== minStarRating
-  //     )
-  //       return 1;
-  //     return b.roundedRating - a.roundedRating; // fallback sort
-  //   });
+import { Link, useNavigate } from "react-router-dom";
+import CartIcon from "./CartIcon";
+import { useEffect, useState } from "react";
+import { FiLogOut } from "react-icons/fi"; // Logout icon
+import { FaUserCircle } from "react-icons/fa"; // Profile icon
 
-  //   onFilter(filtered);
-  // };
+const Navbar = () => {
+  const [cartCount, setCartCount] = useState(0);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const items = JSON.parse(localStorage.getItem("cartItems")) || [];
+      setCartCount(items.length);
+    };
+
+    const updateUser = () => {
+      const user = JSON.parse(localStorage.getItem("loggedInUser"));
+      setLoggedInUser(user);
+    };
+
+    updateCartCount();
+    updateUser();
+
+    window.addEventListener("cartUpdated", updateCartCount);
+    window.addEventListener("storage", updateUser);
+
+    return () => {
+      window.removeEventListener("cartUpdated", updateCartCount);
+      window.removeEventListener("storage", updateUser);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    setLoggedInUser(null);
+    navigate("/login");
+  };
+
+  return (
+    <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center mb-4">
+      <h1 className="text-xl font-bold text-gray-700">My Shop</h1>
+      <div className="space-x-6 flex items-center relative">
+        <Link to="/" className="text-blue-600 hover:underline">
+          Products
+        </Link>
+
+        <Link to="/cart" className="relative text-blue-600">
+          <CartIcon />
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-black text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              {cartCount}
+            </span>
+          )}
+        </Link>
+
+        {/* If not logged in → show Sign up & Log in */}
+        {!loggedInUser ? (
+          <div className="flex items-center space-x-3">
+            <Link
+              to="/signup"
+              className="text-sm font-medium text-black hover:underline"
+            >
+              Sign up
+            </Link>
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-[#0d0d25] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#1a1a40]"
+            >
+              Log in
+            </button>
+          </div>
+        ) : (
+          // If logged in → show profile & logout icon
+          <div className="flex items-center space-x-4">
+            {/* Profile icon */}
+            <div className="flex items-center space-x-2 cursor-pointer">
+              <FaUserCircle className="text-2xl text-gray-700" />
+              <span className="text-sm font-medium text-gray-700">
+                {loggedInUser.name || "User"}
+              </span>
+            </div>
+
+            {/* Logout icon */}
+            <FiLogOut
+              className="text-xl text-gray-700 cursor-pointer hover:text-red-500"
+              onClick={handleLogout}
+              title="Logout"
+            />
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

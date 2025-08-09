@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-// Main SignUp component for the Sign-up page
 function SignUp() {
   const navigate = useNavigate();
 
@@ -40,10 +39,11 @@ function SignUp() {
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("loggedInUser", JSON.stringify(newUser));
 
+    window.dispatchEvent(new Event("userUpdated"));
+
     toast.success("Signup successful! Redirecting to home...");
     navigate("/");
   };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4 font-sans">
       <div className="w-full max-w-md bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl">

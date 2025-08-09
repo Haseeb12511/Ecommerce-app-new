@@ -11,14 +11,16 @@ function Login() {
     e.preventDefault();
 
     const users = JSON.parse(localStorage.getItem("users")) || [];
-
     const matchedUser = users.find(
       (user) => user.email === email && user.password === password
     );
 
     if (matchedUser) {
       localStorage.setItem("loggedInUser", JSON.stringify(matchedUser));
-      navigate("/"); // Redirect to home page after login
+
+      window.dispatchEvent(new Event("userUpdated"));
+
+      navigate("/");
     } else {
       alert("Invalid email or password!");
     }
