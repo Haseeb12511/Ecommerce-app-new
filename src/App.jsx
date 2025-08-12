@@ -1,13 +1,24 @@
-import { useEffect, useState } from "react";
-import Navbar from "./components/Navbar";
-import ProductList from "./components/ProductList";
-import ShoppingCart from "./pages/ShoppingCart";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Products, Users } from "./data/data";
-import ProductDetails from "./pages/ProductDetails";
 import { ToastContainer } from "react-toastify";
+
+// Pages
+import ProductList from "./components/ProductList";
+import ShoppingCart from "./pages/ShoppingCart";
+import ProductDetails from "./pages/ProductDetails";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./routes/ProtectedRoute";
+
+// Layout
+import NavbarLayout from "./components/NavbarLayout";
+
+import "react-pro-sidebar/dist/css/styles.css";
+import "react-toastify/dist/ReactToastify.css";
+import SidebarLayout from "./components/SidebarLayout";
+import Settings from "./pages/Settings";
 
 function App() {
   useEffect(() => {
@@ -22,37 +33,67 @@ function App() {
     });
 
     localStorage.setItem("products", JSON.stringify(productsWithRatings));
-
-    // ✅ Store full users including passwords
     localStorage.setItem("users", JSON.stringify(Users));
   }, []);
 
   return (
-    <>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/" element={<ProductList />} />
-          <Route path="/cart" element={<ShoppingCart />} />
-        </Routes>
-      </Router>
+    <Router>
+      <Routes>
+        {/* Public routes without Navbar */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
 
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-    </>
+        {/* Routes with Navbar + Sidebar */}
+        <Route
+          path="/"
+          element={
+            <NavbarLayout>
+              <ProductList />
+            </NavbarLayout>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <NavbarLayout>
+              <ShoppingCart />
+            </NavbarLayout>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <NavbarLayout>
+              <ProductDetails />
+            </NavbarLayout>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <SidebarLayout>
+                <Dashboard />
+              </SidebarLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <SidebarLayout>
+                <Settings />
+              </SidebarLayout>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+
+      <ToastContainer position="top-right" autoClose={3000} />
+    </Router>
   );
 }
+
 export default App;

@@ -2,6 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "./ui/button";
+
 const ProductCard = ({
   images,
   title,
@@ -61,48 +72,41 @@ const ProductCard = ({
   };
 
   return (
-    <>
-      {/* <div
-        className="bg-white w-56 p-5 rounded-2xl shadow-md text-center m-3"
-        onClick={handleClick}
-      >
-        <img
-          src={images[0]}
-          alt={title}
-          className="w-24 h-24 mx-auto object-contain mb-3"
-        />
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <p className="text-sm text-gray-500">{description}</p>
-        <h3 className="text-lg font-bold text-gray-700 mt-2">${price}</h3>
-        <div className="my-2">{stars}</div>
-        <button
-          className="text-white px-4 py-2 rounded-lg w-full bg-[#0ea5e9] hover:bg-[#2e77ff]"
+    <Card
+      className="w-72 overflow-hidden hover:shadow-lg transition-all duration-300 pt-0 cursor-pointer"
+      onClick={handleClick}
+    >
+      {/* Product Image */}
+      <img
+        src={images[0]}
+        alt={title}
+        className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+      />
+
+      <CardHeader className="text-center">
+        <CardTitle className="text-lg font-bold text-gray-800">
+          {title}
+        </CardTitle>
+        <CardDescription className="text-gray-500 text-sm">
+          {description}
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent className="text-center">
+        <div className="text-orange-400 text-sm mb-1">{stars}</div>
+        <h3 className="text-xl font-semibold text-gray-800">${price}</h3>
+      </CardContent>
+
+      <CardFooter>
+        <Button
+          variant="default"
+          className="w-full"
           onClick={(e) => handleAddToCart(e)}
         >
           Add to Cart
-        </button>
-      </div> */}
-      <div
-        className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col cursor-pointer m-3"
-        onClick={handleClick}
-      >
-        <img src={images[0]} alt={title} className="w-full h-48 object-cover" />
-
-        <div className="p-4 text-center">
-          <h3 className="text-lg font-bold text-gray-800">{title}</h3>
-          <p className="text-sm text-gray-500 mb-2">{description}</p>
-          <div className="text-orange-400 text-sm">{stars}</div>
-          <h3 className="text-xl font-semibold text-gray-800 mt-1">${price}</h3>
-
-          <button
-            className="mt-3 w-full py-2 bg-[#0ea5e9] text-white rounded font-semibold hover:bg-[#2e77ff]"
-            onClick={(e) => handleAddToCart(e)}
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
-    </>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

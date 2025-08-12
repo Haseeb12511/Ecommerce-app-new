@@ -129,9 +129,6 @@ const ShoppingCart = () => {
                   />
                   <div>
                     <p className="font-medium">{item.title}</p>
-                    <p className="text-xs text-gray-500">
-                      In Stock: {item.stock}
-                    </p>
                   </div>
                 </div>
                 <div className="col-span-2 text-center">${item.price}</div>
