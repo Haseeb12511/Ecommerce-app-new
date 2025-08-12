@@ -19,6 +19,8 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import SidebarLayout from "./components/SidebarLayout";
 import Settings from "./pages/Settings";
+import ProductsList from "./pages/ProductsList";
+import OrdersList from "./pages/OrdersList";
 
 function App() {
   useEffect(() => {
@@ -74,6 +76,26 @@ function App() {
             <ProtectedRoute>
               <SidebarLayout>
                 <Dashboard />
+              </SidebarLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/productsList"
+          element={
+            <ProtectedRoute>
+              <SidebarLayout>
+                <ProductsList />
+              </SidebarLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ordersList"
+          element={
+            <ProtectedRoute>
+              <SidebarLayout>
+                <OrdersList />
               </SidebarLayout>
             </ProtectedRoute>
           }

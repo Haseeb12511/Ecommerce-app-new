@@ -1,6 +1,15 @@
 // src/components/AppSidebar.jsx
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Calendar, Home, Inbox, LogOut, Search, Settings } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Inbox,
+  LogOut,
+  Package,
+  Search,
+  Settings,
+  ShoppingCart,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -19,6 +28,8 @@ import { Button } from "./ui/button";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: Home },
+  { title: "Products", url: "/productsList", icon: Package },
+  { title: "Orders", url: "/ordersList", icon: ShoppingCart },
   { title: "Inbox", url: "/inbox", icon: Inbox },
   { title: "Calendar", url: "/calendar", icon: Calendar },
   { title: "Search", url: "/search", icon: Search },
