@@ -43,7 +43,7 @@ export default function SidebarLayout({ children }) {
         <div className="flex-1 flex flex-col">
           {/* Optional top bar */}
           <div className="p-4 border-b">
-            <SidebarTrigger /> {/* toggle button */}
+            <SidebarTrigger className="cursor-pointer" /> {/* toggle button */}
           </div>
 
           {/* Page content */}

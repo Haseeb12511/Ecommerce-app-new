@@ -4,7 +4,6 @@ import { Products, Users } from "./data/data";
 import { ToastContainer } from "react-toastify";
 
 // Pages
-import ProductList from "./components/ProductList";
 import ShoppingCart from "./pages/ShoppingCart";
 import ProductDetails from "./pages/ProductDetails";
 import SignUp from "./pages/SignUp";
@@ -19,8 +18,13 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import SidebarLayout from "./components/SidebarLayout";
 import Settings from "./pages/Settings";
-import ProductsList from "./pages/ProductsList";
+import ProductsList from "./pages/AllProductsList";
 import OrdersList from "./pages/OrdersList";
+import OrdersDetails from "./pages/OrderDetails";
+import ProductAdd from "./pages/ProductAdd";
+import AllProductsList from "./pages/AllProductsList";
+import ProductList from "./components/ProductList";
+import HeroSection from "./components/HeroSection";
 
 function App() {
   useEffect(() => {
@@ -50,6 +54,7 @@ function App() {
           path="/"
           element={
             <NavbarLayout>
+              <HeroSection />
               <ProductList />
             </NavbarLayout>
           }
@@ -85,7 +90,17 @@ function App() {
           element={
             <ProtectedRoute>
               <SidebarLayout>
-                <ProductsList />
+                <AllProductsList />
+              </SidebarLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/productAdd"
+          element={
+            <ProtectedRoute>
+              <SidebarLayout>
+                <ProductAdd />
               </SidebarLayout>
             </ProtectedRoute>
           }
@@ -96,6 +111,16 @@ function App() {
             <ProtectedRoute>
               <SidebarLayout>
                 <OrdersList />
+              </SidebarLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ordersdetails"
+          element={
+            <ProtectedRoute>
+              <SidebarLayout>
+                <OrdersDetails />
               </SidebarLayout>
             </ProtectedRoute>
           }

@@ -5,7 +5,6 @@ import { LogIn, ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Navbar({ navItems }) {
-  console.log("🚀 ~ Navbar ~ navItems:", navItems);
   const [cartCount, setCartCount] = useState(0);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const navigate = useNavigate();
