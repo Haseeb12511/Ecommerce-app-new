@@ -71,9 +71,10 @@ const ProductCard = ({
     navigate(`/product/${id}`);
   };
 
+  // Limit description to 2 lines with ellipsis
   return (
     <Card
-      className="w-72 overflow-hidden hover:shadow-lg transition-all duration-300 pt-0 cursor-pointer"
+      className="overflow-hidden hover:shadow-lg transition-all duration-300 pt-0 cursor-pointer h-[450px] min-w-0"
       onClick={handleClick}
     >
       {/* Product Image */}
@@ -83,11 +84,22 @@ const ProductCard = ({
         className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
       />
 
-      <CardHeader className="text-center">
+      <CardHeader className="text-center ">
         <CardTitle className="text-lg font-bold text-gray-800">
           {title}
         </CardTitle>
-        <CardDescription className="text-gray-500 text-sm">
+        <CardDescription
+          className="text-gray-500 text-sm line-clamp-2"
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "normal",
+            minHeight: "2.5em",
+          }}
+        >
           {description}
         </CardDescription>
       </CardHeader>
@@ -100,7 +112,7 @@ const ProductCard = ({
       <CardFooter>
         <Button
           variant="default"
-          className="w-full"
+          className="w-full cursor-pointer"
           onClick={(e) => handleAddToCart(e)}
         >
           Add to Cart

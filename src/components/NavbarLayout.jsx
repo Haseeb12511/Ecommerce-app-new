@@ -5,16 +5,15 @@ export default function NavbarLayout({ children }) {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Products", path: "/products" },
-    { name: "Cart", path: "/cart" },
     { name: "About", path: "/about" },
     { name: "FAQs", path: "/faqs" },
     { name: "Contact", path: "/contact" },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="pt-16">
       <Navbar navItems={navItems} />
-      <main className="flex-1">{children}</main>
+      <main className="">{children}</main>
     </div>
   );
 }

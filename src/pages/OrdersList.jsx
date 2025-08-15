@@ -99,7 +99,7 @@ const OrdersList = () => {
               <TableHead>Amount</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="pl-6">Action</TableHead>
+              <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
 

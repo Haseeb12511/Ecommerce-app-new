@@ -78,8 +78,8 @@ const SearchItems = ({ products, onFilter }) => {
   };
 
   return (
-    <div className="flex justify-center items-center bg-gray-100 p-0 font-sans">
-      <div className="w-full max-w-sm bg-white p-6 rounded-2xl shadow-xl space-y-6">
+    <div className="flex justify-center items-center p-0 font-sans">
+      <div className="w-full max-w-sm py-6 space-y-6">
         {/* Category Filter */}
         <div>
           <label

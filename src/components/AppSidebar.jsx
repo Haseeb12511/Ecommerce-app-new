@@ -3,12 +3,15 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Calendar,
   Home,
+  HomeIcon,
   Inbox,
+  LayoutDashboard,
   LogOut,
   Package,
   Search,
   Settings,
   ShoppingCart,
+  SkipBack,
 } from "lucide-react";
 
 import {
@@ -27,12 +30,11 @@ import { SidebarFooter } from "react-pro-sidebar";
 import { Button } from "./ui/button";
 
 const items = [
-  { title: "Dashboard", url: "/dashboard", icon: Home },
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Products", url: "/productsList", icon: Package },
   { title: "Orders", url: "/ordersList", icon: ShoppingCart },
   { title: "Inbox", url: "/inbox", icon: Inbox },
   { title: "Calendar", url: "/calendar", icon: Calendar },
-  { title: "Search", url: "/search", icon: Search },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 
@@ -59,12 +61,15 @@ export function AppSidebar() {
   return (
     <Sidebar
       collapsible="icon"
-      variant={open ? "sidebar" : "floating"}
-      className={"transition-all duration-100"}
+      variant={"sidebar"}
+      className="transition-all duration-300 ease-in-out"
     >
       {open && (
         <SidebarHeader>
-          <Link className="text-lg font-semibold" to={"/"}>
+          <Link
+            className="text-lg font-semibold transition-all duration-300 ease-in-out"
+            to={"/"}
+          >
             My Shop
           </Link>
         </SidebarHeader>
@@ -75,13 +80,13 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => {
-                const isActive = location.pathname === item.url; // ✅ check active
+                const isActive = location.pathname === item.url;
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                       <Link
                         to={item.url}
-                        className={`text-sm rounded-md transition-colors
+                        className={`text-sm rounded-md transition-colors duration-300 ease-in-out
                           hover:bg-gray-100 flex items-center p-2
                           ${
                             isActive
@@ -89,7 +94,7 @@ export function AppSidebar() {
                               : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                           }`}
                       >
-                        <item.icon className="mr-2" />
+                        <item.icon className="mr-2 transition-all duration-300 ease-in-out" />
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
@@ -109,10 +114,10 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Button
                     variant="ghost"
-                    className="text-gray-700 hover:bg-gray-100 flex space-x-2 justify-start items-center"
+                    className="text-gray-700 hover:bg-gray-100 flex space-x-2 justify-start items-center transition-all duration-300 ease-in-out"
                     onClick={handleLogout}
                   >
-                    <LogOut />
+                    <LogOut className="transition-all duration-300 ease-in-out" />
                     <span>Logout</span>
                   </Button>
                 </SidebarMenuButton>

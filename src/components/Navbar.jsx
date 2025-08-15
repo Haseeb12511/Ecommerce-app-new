@@ -9,6 +9,10 @@ export default function Navbar({ navItems }) {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const navigate = useNavigate();
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {}, []);
+
   const updateUser = () => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
     setLoggedInUser(user);
@@ -20,6 +24,12 @@ export default function Navbar({ navItems }) {
       setCartCount(items.length);
     };
 
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 64);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     updateCartCount();
     updateUser();
 
@@ -27,6 +37,7 @@ export default function Navbar({ navItems }) {
     window.addEventListener("userUpdated", updateUser);
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("cartUpdated", updateCartCount);
       window.removeEventListener("userUpdated", updateUser);
     };
@@ -40,7 +51,7 @@ export default function Navbar({ navItems }) {
   };
 
   return (
-    <nav className="bg-white shadow-sm px-6 py-3 flex space-x-7 items-center border-b">
+    <nav className="bg-white shadow-sm h-16 px-6 flex space-x-7 items-center fixed top-0 w-full z-10">
       <div className="flex items-center gap-4 justify-between w-full">
         <Link
           to="/"
@@ -87,12 +98,6 @@ export default function Navbar({ navItems }) {
             <Link to="/dashboard">
               <FaUserCircle className="text-2xl text-gray-700" />
             </Link>
-            <button
-              onClick={handleLogout}
-              className="text-sm text-gray-600 hover:text-red-600"
-            >
-              Logout
-            </button>
           </div>
         )}
       </div>

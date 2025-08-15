@@ -25,6 +25,9 @@ import ProductAdd from "./pages/ProductAdd";
 import AllProductsList from "./pages/AllProductsList";
 import ProductList from "./components/ProductList";
 import HeroSection from "./components/HeroSection";
+import Home from "./pages/Home";
+import ProductsPage from "./pages/Products";
+import FAQ from "./pages/FAQ";
 
 function App() {
   useEffect(() => {
@@ -54,8 +57,23 @@ function App() {
           path="/"
           element={
             <NavbarLayout>
-              <HeroSection />
-              <ProductList />
+              <Home />
+            </NavbarLayout>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <NavbarLayout>
+              <ProductsPage />
+            </NavbarLayout>
+          }
+        />
+        <Route
+          path="/faqs"
+          element={
+            <NavbarLayout>
+              <FAQ />
             </NavbarLayout>
           }
         />
