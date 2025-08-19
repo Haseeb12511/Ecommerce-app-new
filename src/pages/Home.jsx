@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import Loader from "@/components/Loader";
 import ProductList from "@/components/ProductList";
@@ -29,6 +30,7 @@ const Home = () => {
           <ProductList products={products && products.slice(0, 4)} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

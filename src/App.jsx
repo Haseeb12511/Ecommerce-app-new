@@ -27,7 +27,10 @@ import ProductList from "./components/ProductList";
 import HeroSection from "./components/HeroSection";
 import Home from "./pages/Home";
 import ProductsPage from "./pages/Products";
-import FAQ from "./pages/FAQ";
+import FAQ from "./pages/Faq";
+import AboutPage from "./pages/About";
+import ContactPage from "./pages/Contact";
+import HomePage from "./pages/HomePage";
 
 function App() {
   useEffect(() => {
@@ -57,7 +60,7 @@ function App() {
           path="/"
           element={
             <NavbarLayout>
-              <Home />
+              <HomePage />
             </NavbarLayout>
           }
         />
@@ -70,6 +73,14 @@ function App() {
           }
         />
         <Route
+          path="/about"
+          element={
+            <NavbarLayout>
+              <AboutPage />
+            </NavbarLayout>
+          }
+        />
+        <Route
           path="/faqs"
           element={
             <NavbarLayout>
@@ -77,6 +88,15 @@ function App() {
             </NavbarLayout>
           }
         />
+        <Route
+          path="/contact"
+          element={
+            <NavbarLayout>
+              <ContactPage />
+            </NavbarLayout>
+          }
+        />
+
         <Route
           path="/cart"
           element={

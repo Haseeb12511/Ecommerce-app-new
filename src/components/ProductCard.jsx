@@ -72,6 +72,40 @@ const ProductCard = ({
   };
 
   // Limit description to 2 lines with ellipsis
+
+  return (
+    <Card className="rounded-3xl">
+      <img
+        src={images[0]}
+        alt={title}
+        className="h-40 w-full object-cover rounded-t-3xl"
+      />
+      <CardContent className="p-4">
+        <h3 className="font-semibold">Product {i}</h3>
+        <p
+          className="text-sm text-muted-foreground"
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "normal",
+            minHeight: "2.5em",
+          }}
+        >
+          {description}
+        </p>
+        <div className="flex justify-between items-center mt-3">
+          <span className="font-bold">$49.99</span>
+          <Button size="sm" className="rounded-lg">
+            Add to Cart
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <Card
       className="overflow-hidden hover:shadow-lg transition-all duration-300 pt-0 cursor-pointer h-[450px] min-w-0"

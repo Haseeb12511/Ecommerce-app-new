@@ -11,60 +11,11 @@ import {
   ReceiptText,
   User,
   Settings,
+  Plus,
+  ChevronDownIcon,
 } from "lucide-react";
 
 function FAQ() {
-  //   const faqData = [
-  //     {
-  //       icon: <Smile className="w-5 h-5" />,
-  //       question: "Is there a free trial available?",
-  //       answer:
-  //         "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free 30-minute onboarding call to get you up and running.",
-  //     },
-  //     {
-  //       icon: <FileText className="w-5 h-5" />,
-  //       question: "Can I change my plan later?",
-  //       answer:
-  //         "Yes, you can change your plan at any time. Our plans are flexible to meet your needs as your business grows.",
-  //     },
-  //     {
-  //       icon: <FileText className="w-5 h-5" />,
-  //       question: "What is your cancellation policy?",
-  //       answer:
-  //         "You can cancel your subscription at any time. Cancellations will take effect at the end of your current billing period.",
-  //     },
-  //     {
-  //       icon: <ReceiptText className="w-5 h-5" />,
-  //       question: "Can other info be added to an invoice?",
-  //       answer:
-  //         "Yes, custom information such as PO numbers or tax IDs can be added to your invoices. Please contact support for assistance.",
-  //     },
-  //     {
-  //       icon: <Calendar className="w-5 h-5" />,
-  //       question: "How does billing work?",
-  //       answer:
-  //         "Billing is done on a monthly or annual basis, depending on your chosen plan. You will receive an invoice via email.",
-  //     },
-  //     {
-  //       icon: <User className="w-5 h-5" />,
-  //       question: "How do I change my account email?",
-  //       answer:
-  //         "You can change your account email in your profile settings. Navigate to 'Account' and then 'Change Email'.",
-  //     },
-  //     {
-  //       icon: <Settings className="w-5 h-5" />,
-  //       question: "How does support work?",
-  //       answer:
-  //         "We offer 24/7 email support for all plans. Enterprise plans also include dedicated phone support and a personal account manager.",
-  //     },
-  //     {
-  //       icon: <FileText className="w-5 h-5" />,
-  //       question: "Do you provide tutorials?",
-  //       answer:
-  //         "Yes, we have an extensive library of video tutorials and written guides available in our knowledge base.",
-  //     },
-  //   ];
-
   const faqData = [
     {
       icon: <Smile className="w-5 h-5" />,
@@ -110,39 +61,160 @@ function FAQ() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6 font-inter antialiased">
-      <div className="bg-white p-8 rounded-2xl shadow-sm w-full max-w-4xl text-center">
-        <h1 className="text-3xl font-semibold text-gray-900 mb-2">
-          Frequently Asked Questions
-        </h1>
-        <p className="text-gray-500 mb-8">
-          Find answers to common shopping questions. <br />
-          Shop smarter, faster, and with confidence.
-        </p>
+    <div className="min-h-screen font-inter antialiased bg-gray-100">
+      {/* Top Section */}
+      <div className="w-full bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 ">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              Have questions? Here you'll find the answers most valued by our
+              customers, along with access to step-by-step instructions and
+              support.
+            </p>
+          </div>
 
-        {/* Accordion */}
-        <div className="text-left">
-          <Accordion type="multiple" className="w-full">
-            {faqData.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger>
-                  <div className="flex items-center space-x-3 text-gray-700">
-                    <div className="p-2 bg-gray-100 rounded-full">
-                      {faq.icon}
-                    </div>
-                    <span className="text-lg font-medium">{faq.question}</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <p className="text-gray-600 pl-11">{faq.answer}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          {/* Right Image */}
+          <div className="flex justify-center">
+            <img
+              src="/assets/Faqs.svg"
+              alt="FAQs illustration"
+              className="object-contain w-72 md:w-96"
+            />
+          </div>
         </div>
+      </div>
+
+      {/* Accordion Section */}
+      <div className=" p-8  w-full max-w-6xl mx-auto relative">
+        <Accordion type="multiple" className="w-full">
+          {faqData.map((faq, index) => (
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger className="cursor-pointer">
+                <div className="flex items-center space-x-3 text-gray-700">
+                  <div className="p-2 bg-gray-100 rounded-full">{faq.icon}</div>
+                  <span className="text-lg font-medium">{faq.question}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className="text-gray-600 pl-11">{faq.answer}</p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </div>
   );
 }
 
 export default FAQ;
+
+//////////////////////////////////////////////////////////////////////////////
+
+// // src/pages/FAQ.jsx
+// import React, { useState } from "react";
+// import {
+//   Accordion,
+//   AccordionItem,
+//   AccordionTrigger,
+//   AccordionContent,
+// } from "@/components/ui/accordion";
+// import { Input } from "@/components/ui/input";
+
+// export default function FAQ() {
+//   const [search, setSearch] = useState("");
+
+//   const faqs = [
+//     {
+//       question: "How can I track my order?",
+//       answer:
+//         "Once your order ships, you’ll receive an email with tracking details. You can also view your order status in your account dashboard.",
+//     },
+//     {
+//       question: "What is your return policy?",
+//       answer:
+//         "We accept returns within 14 days of delivery. Items must be unused and in original packaging. Refunds are issued once we receive and inspect the return.",
+//     },
+//     {
+//       question: "Do you offer international shipping?",
+//       answer:
+//         "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary based on your location.",
+//     },
+//     {
+//       question: "Can I cancel my order after placing it?",
+//       answer:
+//         "Orders can be cancelled within 2 hours of placing them. After that, we start processing and may not be able to cancel.",
+//     },
+//     {
+//       question: "How can I contact customer support?",
+//       answer:
+//         "You can reach us via the contact form, email, or phone. Our support team is available Monday to Friday, 9 AM - 6 PM.",
+//     },
+//   ];
+
+//   const filteredFAQs = faqs.filter((faq) =>
+//     faq.question.toLowerCase().includes(search.toLowerCase())
+//   );
+
+//   return (
+//     <div className="w-full">
+//       {/* Hero Section */}
+//       <div className="relative h-60 md:h-96 w-full overflow-hidden rounded-b-lg">
+//         <img
+//           src="https://images.unsplash.com/photo-1495427513693-3f40da04b3fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGVscHxlbnwwfHwwfHx8MA%3D%3D"
+//           alt="Help Center"
+//           className="w-full h-full object-cover brightness-90"
+//         />
+//         <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-6 md:px-16">
+//           <h1 className="text-3xl md:text-5xl font-bold mb-2 text-center">
+//             Help Center
+//           </h1>
+//           <p className="text-center max-w-2xl">
+//             Find answers to common questions, or reach out to our support team.
+//           </p>
+//         </div>
+//       </div>
+
+//       {/* Search Bar */}
+//       <div className="container mx-auto px-6 lg:px-16 -mt-10 mb-8">
+//         <Input
+//           placeholder="Search FAQs..."
+//           value={search}
+//           onChange={(e) => setSearch(e.target.value)}
+//           className="w-full md:max-w-xl mx-auto shadow-lg"
+//         />
+//       </div>
+
+//       {/* FAQ Accordion */}
+//       <div className="container mx-auto px-6 lg:px-16 py-6">
+//         {filteredFAQs.length === 0 ? (
+//           <p className="text-gray-500 text-center">No results found.</p>
+//         ) : (
+//           <Accordion
+//             type="single"
+//             collapsible
+//             className="w-full max-w-3xl mx-auto"
+//           >
+//             {filteredFAQs.map((faq, index) => (
+//               <AccordionItem
+//                 key={index}
+//                 value={`item-${index}`}
+//                 className="border-b"
+//               >
+//                 <AccordionTrigger className="text-lg font-medium py-4">
+//                   {faq.question}
+//                 </AccordionTrigger>
+//                 <AccordionContent className="text-gray-600 pb-4">
+//                   {faq.answer}
+//                 </AccordionContent>
+//               </AccordionItem>
+//             ))}
+//           </Accordion>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }

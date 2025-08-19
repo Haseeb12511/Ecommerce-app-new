@@ -11,7 +11,7 @@ export default function NavbarLayout({ children }) {
   ];
 
   return (
-    <div className="pt-16">
+    <div>
       <Navbar navItems={navItems} />
       <main className="">{children}</main>
     </div>

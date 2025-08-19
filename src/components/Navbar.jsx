@@ -1,17 +1,25 @@
-// src/components/Navbar.jsx
-import { Link, useNavigate } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
-import { LogIn, ShoppingBag } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ShoppingCart, Menu, LogIn, User } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 
-export default function Navbar({ navItems }) {
+export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const navigate = useNavigate();
-
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {}, []);
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Products", path: "/products" },
+    { name: "About", path: "/about" },
+    { name: "FAQs", path: "/faqs" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   const updateUser = () => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -24,12 +32,6 @@ export default function Navbar({ navItems }) {
       setCartCount(items.length);
     };
 
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 64);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
     updateCartCount();
     updateUser();
 
@@ -37,70 +39,116 @@ export default function Navbar({ navItems }) {
     window.addEventListener("userUpdated", updateUser);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("cartUpdated", updateCartCount);
       window.removeEventListener("userUpdated", updateUser);
     };
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("loggedInUser");
-    setLoggedInUser(null);
-    window.dispatchEvent(new Event("userUpdated"));
-    navigate("/login");
-  };
-
   return (
-    <nav className="bg-white shadow-sm h-16 px-6 flex space-x-7 items-center fixed top-0 w-full z-10">
-      <div className="flex items-center gap-4 justify-between w-full">
-        <Link
-          to="/"
-          className="text-xl font-bold text-gray-800 hover:text-sky-600"
-        >
-          My Shop
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+      <div className="container mx-auto flex h-16 items-center justify-between px-6 lg:px-16">
+        {/* Logo */}
+        <Link to="/" className="text-xl font-bold tracking-tight">
+          MyStore
         </Link>
 
-        <div className="flex space-x-5 mx-3">
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex gap-6">
           {navItems.map((item) => (
-            <Link
-              key={item.name}
+            <NavLink
+              key={item.path}
               to={item.path}
-              className="text-gray-600 hover:text-sky-600 transition-colors"
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors hover:text-primary underline-offset-4 ${
+                  isActive ? "text-primary underline " : "text-muted-foreground"
+                }`
+              }
             >
               {item.name}
-            </Link>
+            </NavLink>
           ))}
+        </nav>
+
+        {/* Right Section */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Link to="/cart" className="">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full cursor-pointer relative"
+              >
+                <ShoppingCart className="text-gray-700 hover:text-gray-800 transition-colors" />
+                {cartCount > 0 && (
+                  <span className="absolute top-[0px] right-[1px] bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
+
+            {!loggedInUser ? (
+              <Link to="/login">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full cursor-pointer"
+                >
+                  <LogIn
+                    className="text-gray-600 hover:text-gray-700 transition-colors"
+                    size={20}
+                  />
+                </Button>
+              </Link>
+            ) : (
+              <div className="flex items-center gap-4">
+                <Link to="/dashboard" className="rounded-full">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full cursor-pointer"
+                  >
+                    <User className="text-gray-700 hover:text-gray-800 transition-colors" />
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Menu */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden rounded-full"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" aria-describedby={undefined}>
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-4 mt-6 pl-4">
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `text-sm font-medium transition-colors hover:text-primary ${
+                        isActive ? "text-primary" : "text-muted-foreground"
+                      }`
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
-
-      <div className="flex items-center gap-3">
-        <Link to="/cart" className="relative">
-          <ShoppingBag
-            className="text-gray-600 hover:text-gray-700 transition-colors"
-            size={20}
-          />
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-              {cartCount}
-            </span>
-          )}
-        </Link>
-
-        {!loggedInUser ? (
-          <Link to="/login">
-            <LogIn
-              className="text-gray-600 hover:text-gray-700 transition-colors"
-              size={20}
-            />
-          </Link>
-        ) : (
-          <div className="flex items-center gap-4">
-            <Link to="/dashboard">
-              <FaUserCircle className="text-2xl text-gray-700" />
-            </Link>
-          </div>
-        )}
-      </div>
-    </nav>
+    </header>
   );
 }
