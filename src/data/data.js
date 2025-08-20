@@ -148,6 +148,45 @@ export const Products = [
       },
     ],
   },
+  {
+    id: 5,
+    title: "Earphone",
+    images: [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8RWFycGhvbmV8ZW58MHx8MHx8fDA%3D",
+    ],
+    price: 40.0,
+    stock: 20,
+    categories: ["Electronics", "Audio"],
+    description:
+      "Immerse yourself in crystal-clear sound with our high-quality earphones, engineered for music lovers and audiophiles alike. Featuring advanced noise cancellation technology, these earphones block out unwanted background noise, allowing you to enjoy your favorite tracks with exceptional clarity. The ergonomic design ensures a comfortable fit, even during extended listening sessions, while the lightweight build makes them easy to carry wherever you go. With a robust battery life, you can enjoy hours of uninterrupted music, podcasts, or calls. The earphones deliver deep bass, crisp highs, and balanced mids, providing a rich and dynamic audio experience. Compatible with a wide range of devices, they are perfect for commuting, workouts, or relaxing at home. The tangle-free cable and durable construction guarantee longevity and hassle-free use. Elevate your listening experience with earphones that combine superior sound quality, comfort, and reliability.",
+    reviews: [
+      {
+        user: "Frank",
+        comment: "Amazing sound quality for the price!",
+        rating: 5,
+      },
+      {
+        user: "Grace",
+        comment: "Comfortable fit and great battery life.",
+        rating: 4,
+      },
+      {
+        user: "Hannah",
+        comment: "Decent sound but could use better bass.",
+        rating: 3,
+      },
+      {
+        user: "Ian",
+        comment: "Good value for money. Satisfied with the purchase.",
+        rating: 4,
+      },
+      {
+        user: "Jack",
+        comment: "Not the best, but works fine for casual listening.",
+        rating: 3,
+      },
+    ],
+  },
 ];
 
 export const Users = [

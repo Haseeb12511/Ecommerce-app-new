@@ -49,7 +49,7 @@ function SignUp() {
       <div className="w-full max-w-md bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl">
         <div className="text-left">
           {/* Logo */}
-          <div className="text-xl font-bold text-red-500 mb-6">Logo Here</div>
+          <div className="text-xl font-bold text-red-500 mb-6">My Shop</div>
 
           {/* Welcome and Sign Up */}
           <h2 className="text-gray-600 text-lg">Create your account</h2>

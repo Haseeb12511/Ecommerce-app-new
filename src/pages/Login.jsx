@@ -31,7 +31,7 @@ function Login() {
       <div className="w-full max-w-md bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl">
         <div className="text-left">
           {/* Logo */}
-          <div className="text-xl font-bold text-red-500 mb-6">Logo Here</div>
+          <div className="text-xl font-bold text-red-500 mb-6">My Shop</div>
 
           {/* Welcome and Sign In */}
           <h2 className="text-gray-600 text-lg">Welcome back !!!</h2>
@@ -93,7 +93,7 @@ function Login() {
               type="submit"
               className="w-full flex justify-center items-center py-3 px-4 mt-6 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
             >
-              SING IN
+              Sign in
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 ml-2"
