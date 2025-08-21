@@ -12,6 +12,7 @@ import {
   Settings,
   ShoppingCart,
   SkipBack,
+  User,
 } from "lucide-react";
 
 import {
@@ -33,6 +34,7 @@ const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Products", url: "/productsList", icon: Package },
   { title: "Orders", url: "/ordersList", icon: ShoppingCart },
+  { title: "Customers", url: "/customersList", icon: User },
   { title: "Inbox", url: "/inbox", icon: Inbox },
   { title: "Calendar", url: "/calendar", icon: Calendar },
   { title: "Settings", url: "/settings", icon: Settings },

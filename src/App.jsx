@@ -31,6 +31,7 @@ import FAQ from "./pages/Faq";
 import AboutPage from "./pages/About";
 import ContactPage from "./pages/Contact";
 import HomePage from "./pages/HomePage";
+import Customers from "./pages/Customers";
 
 function App() {
   useEffect(() => {
@@ -159,6 +160,16 @@ function App() {
             <ProtectedRoute>
               <SidebarLayout>
                 <OrdersDetails />
+              </SidebarLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customerslist"
+          element={
+            <ProtectedRoute>
+              <SidebarLayout>
+                <Customers />
               </SidebarLayout>
             </ProtectedRoute>
           }

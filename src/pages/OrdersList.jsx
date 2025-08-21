@@ -164,3 +164,229 @@ const OrdersList = () => {
 };
 
 export default OrdersList;
+
+// // src/pages/Orders.jsx
+// import React, { useState } from "react";
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "@/components/ui/table";
+// import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogTitle,
+//   DialogTrigger,
+// } from "@/components/ui/dialog";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+// // Mock Data
+// const ordersData = [
+//   {
+//     id: "ORD001",
+//     customer: "Haseeb Hussain",
+//     amount: 25000,
+//     date: "2024-08-15",
+//     status: "Pending",
+//     products: [
+//       { name: "AirPods Pro", qty: 1, price: 20000 },
+//       { name: "Phone Case", qty: 2, price: 2500 },
+//     ],
+//     shipping: "Lahore, Pakistan",
+//     payment: "Paid",
+//   },
+//   {
+//     id: "ORD002",
+//     customer: "Ali Khan",
+//     amount: 15000,
+//     date: "2024-08-18",
+//     status: "Dispatched",
+//     products: [{ name: "Smart Watch", qty: 1, price: 15000 }],
+//     shipping: "Karachi, Pakistan",
+//     payment: "Pending",
+//   },
+//   {
+//     id: "ORD003",
+//     customer: "Ayesha Ahmed",
+//     amount: 32000,
+//     date: "2024-08-19",
+//     status: "Delivered",
+//     products: [
+//       { name: "Laptop Bag", qty: 1, price: 8000 },
+//       { name: "Wireless Mouse", qty: 2, price: 12000 },
+//       { name: "Keyboard", qty: 1, price: 12000 },
+//     ],
+//     shipping: "Islamabad, Pakistan",
+//     payment: "Paid",
+//   },
+// ];
+
+// export default function Orders() {
+//   const [search, setSearch] = useState("");
+//   const [statusFilter, setStatusFilter] = useState("All");
+
+//   const filteredOrders = ordersData.filter((order) => {
+//     const matchesSearch =
+//       order.id.toLowerCase().includes(search.toLowerCase()) ||
+//       order.customer.toLowerCase().includes(search.toLowerCase());
+//     const matchesStatus =
+//       statusFilter === "All" || order.status === statusFilter;
+//     return matchesSearch && matchesStatus;
+//   });
+
+//   return (
+//     <div className="container mx-auto px-6 lg:px-16 py-10">
+//       <h1 className="text-3xl font-bold mb-6">Orders</h1>
+
+//       {/* Search + Filter */}
+//       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+//         <Input
+//           placeholder="Search by Order ID or Customer..."
+//           value={search}
+//           onChange={(e) => setSearch(e.target.value)}
+//           className="max-w-sm"
+//         />
+//         <Select value={statusFilter} onValueChange={setStatusFilter}>
+//           <SelectTrigger className="w-[180px]">
+//             <SelectValue placeholder="Filter by Status" />
+//           </SelectTrigger>
+//           <SelectContent>
+//             <SelectItem value="All">All</SelectItem>
+//             <SelectItem value="Pending">Pending</SelectItem>
+//             <SelectItem value="Dispatched">Dispatched</SelectItem>
+//             <SelectItem value="Delivered">Delivered</SelectItem>
+//           </SelectContent>
+//         </Select>
+//       </div>
+
+//       {/* Orders Table */}
+//       <Card className="shadow-sm">
+//         <CardHeader>
+//           <CardTitle>Order List</CardTitle>
+//         </CardHeader>
+//         <CardContent>
+//           <div className="overflow-x-auto">
+//             <Table>
+//               <TableHeader>
+//                 <TableRow>
+//                   <TableHead>Order ID</TableHead>
+//                   <TableHead>Customer</TableHead>
+//                   <TableHead>Total</TableHead>
+//                   <TableHead>Date</TableHead>
+//                   <TableHead>Status</TableHead>
+//                   <TableHead>Action</TableHead>
+//                 </TableRow>
+//               </TableHeader>
+//               <TableBody>
+//                 {filteredOrders.map((order) => (
+//                   <TableRow key={order.id}>
+//                     <TableCell>{order.id}</TableCell>
+//                     <TableCell>{order.customer}</TableCell>
+//                     <TableCell>Rs {order.amount.toLocaleString()}</TableCell>
+//                     <TableCell>{order.date}</TableCell>
+//                     <TableCell>
+//                       <span
+//                         className={`px-2 py-1 rounded-full text-xs font-medium ${
+//                           order.status === "Pending"
+//                             ? "bg-yellow-100 text-yellow-800"
+//                             : order.status === "Dispatched"
+//                             ? "bg-blue-100 text-blue-800"
+//                             : "bg-green-100 text-green-800"
+//                         }`}
+//                       >
+//                         {order.status}
+//                       </span>
+//                     </TableCell>
+//                     <TableCell>
+//                       <Dialog>
+//                         <DialogTrigger asChild>
+//                           <Button size="sm" variant="outline">
+//                             View Details
+//                           </Button>
+//                         </DialogTrigger>
+//                         <DialogContent className="max-w-lg">
+//                           <DialogHeader>
+//                             <DialogTitle>Order Details</DialogTitle>
+//                           </DialogHeader>
+//                           <div className="space-y-4">
+//                             <p>
+//                               <strong>Order ID:</strong> {order.id}
+//                             </p>
+//                             <p>
+//                               <strong>Customer:</strong> {order.customer}
+//                             </p>
+//                             <p>
+//                               <strong>Shipping:</strong> {order.shipping}
+//                             </p>
+//                             <p>
+//                               <strong>Payment:</strong> {order.payment}
+//                             </p>
+//                             <p className="font-semibold">Products:</p>
+//                             <ul className="list-disc list-inside">
+//                               {order.products.map((p, i) => (
+//                                 <li key={i}>
+//                                   {p.name} × {p.qty} = Rs{" "}
+//                                   {(p.qty * p.price).toLocaleString()}
+//                                 </li>
+//                               ))}
+//                             </ul>
+//                             <p className="font-bold">
+//                               Total: Rs {order.amount.toLocaleString()}
+//                             </p>
+
+//                             {/* Status Update */}
+//                             <div className="flex items-center gap-2">
+//                               <Select
+//                                 value={order.status}
+//                                 onValueChange={(val) =>
+//                                   console.log("Update status to", val)
+//                                 }
+//                               >
+//                                 <SelectTrigger className="w-[150px]">
+//                                   <SelectValue placeholder="Update Status" />
+//                                 </SelectTrigger>
+//                                 <SelectContent>
+//                                   <SelectItem value="Pending">
+//                                     Pending
+//                                   </SelectItem>
+//                                   <SelectItem value="Dispatched">
+//                                     Dispatched
+//                                   </SelectItem>
+//                                   <SelectItem value="Delivered">
+//                                     Delivered
+//                                   </SelectItem>
+//                                 </SelectContent>
+//                               </Select>
+//                               <Button>Update</Button>
+//                             </div>
+
+//                             <Button className="w-full mt-4" variant="outline">
+//                               Print Invoice
+//                             </Button>
+//                           </div>
+//                         </DialogContent>
+//                       </Dialog>
+//                     </TableCell>
+//                   </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>
+//           </div>
+//         </CardContent>
+//       </Card>
+//     </div>
+//   );
+// }
