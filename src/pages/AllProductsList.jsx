@@ -388,7 +388,7 @@ const AllProductsList = () => {
                     </TableCell>
                     <TableCell>
                       <Badge variant="outline" className="capitalize">
-                        {product.categorys?.[1] || "—"}
+                        {product.categorys?.[0] || "—"}
                       </Badge>
                     </TableCell>
                     <TableCell className="font-semibold text-gray-700">
@@ -458,7 +458,7 @@ const AllProductsList = () => {
                       {product.title}
                     </h2>
                     <p className="text-sm text-gray-500">
-                      {product.categorys?.[1] || "—"}
+                      {product.categorys?.[0] || "—"}
                     </p>
                   </div>
                 </div>
@@ -507,7 +507,7 @@ const AllProductsList = () => {
                     className={`w-9 h-9 rounded-lg text-sm ${
                       page === currentPage
                         ? "bg-purple-600 text-white"
-                        : "bg-white text-gray-700 hover:bg-gray-50"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                     }`}
                   >
                     {page}

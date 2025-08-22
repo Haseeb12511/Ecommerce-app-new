@@ -200,6 +200,7 @@ export const Users = [
     name: "John Doe",
     email: "john@example.com",
     password: "password123",
+    registered: "8/22/2000",
     role: "admin",
   },
   {
@@ -207,6 +208,7 @@ export const Users = [
     name: "Jane Smith",
     email: "jane@example.com",
     password: "password456",
+    registered: "10/10/2020",
     role: "user",
   },
   {
@@ -214,6 +216,7 @@ export const Users = [
     name: "Alice Johnson",
     email: "alice@example.com",
     password: "password789",
+    registered: "1/30/2010",
     role: "user",
   },
   {
@@ -221,6 +224,7 @@ export const Users = [
     name: "Bob Brown",
     email: "bob@example.com",
     password: "password101",
+    registered: "5/20/2000",
     role: "user",
   },
   {
@@ -228,6 +232,7 @@ export const Users = [
     name: "Syed Haseeb",
     email: "haseeb@gmail.com",
     password: "haseeb123",
+    registered: "7/1/2025",
     role: "user",
   },
 ];

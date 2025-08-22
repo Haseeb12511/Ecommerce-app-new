@@ -303,33 +303,6 @@ export default function ProductList() {
     ),
   ];
 
-  // // ⭐ filtering logic from SearchItems
-  // const filteredProducts = products
-  //   .map((product) => {
-  //     const avgRating =
-  //       product.reviews?.reduce((sum, r) => sum + r.rating, 0) /
-  //         (product.reviews?.length || 1) || 0;
-  //     const roundedRating = Math.round(avgRating);
-  //     return { ...product, roundedRating };
-  //   })
-  //   .filter((product) => {
-  //     const matchesSearch = product.title
-  //       .toLowerCase()
-  //       .includes(search.toLowerCase());
-
-  //     const matchesCategory =
-  //       category === "all" || product.categories?.includes(category);
-
-  //     const matchesPrice =
-  //       product.price >= price[0] && product.price <= price[1];
-
-  //     const matchesRating =
-  //       product.roundedRating <= minStarRating && product.roundedRating >= 1;
-
-  //     return matchesSearch && matchesCategory && matchesPrice && matchesRating;
-  //   })
-  //   .sort((a, b) => b.roundedRating - a.roundedRating);
-
   const filteredProducts = products
     .map((product) => {
       const avgRating =
@@ -429,16 +402,6 @@ export default function ProductList() {
           </SelectContent>
         </Select>
 
-        {/* <div className="flex space-x-1">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <Star
-              key={star}
-              filled={star <= minStarRating}
-              onClick={() => setMinStarRating(star)}
-            />
-          ))}
-        </div> */}
-
         <div className="flex space-x-1">
           {[1, 2, 3, 4, 5].map((star) => (
             <Star
@@ -448,12 +411,12 @@ export default function ProductList() {
             />
           ))}
           {/* Reset option */}
-          <span
+          {/* <span
             className="ml-2 text-sm text-blue-500 cursor-pointer"
             onClick={() => setMinStarRating(null)}
           >
             Reset
-          </span>
+          </span> */}
         </div>
 
         <div className="flex flex-col gap-2 w-full max-w-sm">

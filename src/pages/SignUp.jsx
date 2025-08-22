@@ -32,6 +32,10 @@ function SignUp() {
       name,
       email,
       password,
+      registered: new Date().toLocaleDateString(),
+      // phone: "",
+      // address: "",
+      // orders: 0,
       role: "user",
     };
 

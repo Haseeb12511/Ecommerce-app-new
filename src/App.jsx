@@ -31,22 +31,44 @@ import FAQ from "./pages/Faq";
 import AboutPage from "./pages/About";
 import ContactPage from "./pages/Contact";
 import HomePage from "./pages/HomePage";
-import Customers from "./pages/Customers";
+import UsersList from "./pages/UsersList";
 
 function App() {
-  useEffect(() => {
-    const productsWithRatings = Products.map((product) => {
-      const reviews = product.reviews || [];
-      const totalRating = reviews.reduce(
-        (acc, review) => acc + review.rating,
-        0
-      );
-      const averageRating = reviews.length ? totalRating / reviews.length : 0;
-      return { ...product, rating: Math.round(averageRating) };
-    });
+  // useEffect(() => {
+  //   const productsWithRatings = Products.map((product) => {
+  //     const reviews = product.reviews || [];
+  //     const totalRating = reviews.reduce(
+  //       (acc, review) => acc + review.rating,
+  //       0
+  //     );
+  //     const averageRating = reviews.length ? totalRating / reviews.length : 0;
+  //     return { ...product, rating: Math.round(averageRating) };
+  //   });
 
-    localStorage.setItem("products", JSON.stringify(productsWithRatings));
-    localStorage.setItem("users", JSON.stringify(Users));
+  //   localStorage.setItem("products", JSON.stringify(productsWithRatings));
+  //   localStorage.setItem("users", JSON.stringify(Users));
+  // }, []);
+
+  useEffect(() => {
+    // Products set only if not already in localStorage
+    if (!localStorage.getItem("products")) {
+      const productsWithRatings = Products.map((product) => {
+        const reviews = product.reviews || [];
+        const totalRating = reviews.reduce(
+          (acc, review) => acc + review.rating,
+          0
+        );
+        const averageRating = reviews.length ? totalRating / reviews.length : 0;
+        return { ...product, rating: Math.round(averageRating) };
+      });
+
+      localStorage.setItem("products", JSON.stringify(productsWithRatings));
+    }
+
+    // Users set only if not already in localStorage
+    if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify(Users));
+    }
   }, []);
 
   return (
@@ -155,7 +177,7 @@ function App() {
           }
         />
         <Route
-          path="/ordersdetails"
+          path="/ordersdetails/:id"
           element={
             <ProtectedRoute>
               <SidebarLayout>
@@ -165,11 +187,11 @@ function App() {
           }
         />
         <Route
-          path="/customerslist"
+          path="/usersList"
           element={
             <ProtectedRoute>
               <SidebarLayout>
-                <Customers />
+                <UsersList />
               </SidebarLayout>
             </ProtectedRoute>
           }
