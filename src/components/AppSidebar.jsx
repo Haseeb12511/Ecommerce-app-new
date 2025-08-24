@@ -32,9 +32,9 @@ import { Button } from "./ui/button";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Products", url: "/productsList", icon: Package },
-  { title: "Orders", url: "/ordersList", icon: ShoppingCart },
-  { title: "Users", url: "/usersList", icon: User },
+  { title: "Products", url: "/product-list", icon: Package },
+  { title: "Orders", url: "/order-list", icon: ShoppingCart },
+  { title: "Users", url: "/user-list", icon: User },
   { title: "Inbox", url: "/inbox", icon: Inbox },
   { title: "Calendar", url: "/calendar", icon: Calendar },
   { title: "Settings", url: "/settings", icon: Settings },

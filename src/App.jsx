@@ -5,10 +5,10 @@ import { ToastContainer } from "react-toastify";
 
 // Pages
 import ShoppingCart from "./pages/ShoppingCart";
-import ProductDetails from "./pages/ProductDetails";
+import ProductDetails from "./components/dashboard/ProductDetails";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 // Layout
@@ -18,20 +18,16 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import SidebarLayout from "./components/SidebarLayout";
 import Settings from "./pages/Settings";
-import ProductsList from "./pages/ProductsList";
-import OrdersList from "./pages/OrdersList";
-import OrdersDetails from "./pages/OrderDetails";
-import ProductAdd from "./pages/ProductAdd";
-import AllProductsList from "./pages/ProductsList";
-import ProductList from "./components/ProductList";
-import HeroSection from "./components/HeroSection";
-import Home from "./pages/Home";
+import OrdersList from "./pages/Dashboard/OrdersList";
+import OrdersDetails from "./components/dashboard/OrderDetails";
+import ProductAdd from "./components/dashboard/ProductAdd";
+import AllProductsList from "./pages/Dashboard/ProductsList";
 import ProductsPage from "./pages/Products";
 import FAQ from "./pages/Faq";
 import AboutPage from "./pages/About";
 import ContactPage from "./pages/Contact";
 import HomePage from "./pages/HomePage";
-import UsersList from "./pages/UsersList";
+import UsersList from "./pages/Dashboard/UsersList";
 
 function App() {
   // useEffect(() => {
@@ -74,11 +70,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public routes without Navbar */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
 
-        {/* Routes with Navbar + Sidebar */}
         <Route
           path="/"
           element={
@@ -147,7 +141,7 @@ function App() {
           }
         />
         <Route
-          path="/productsList"
+          path="/product-list"
           element={
             <ProtectedRoute>
               <SidebarLayout>
@@ -157,7 +151,7 @@ function App() {
           }
         />
         <Route
-          path="/productAdd"
+          path="/product-new"
           element={
             <ProtectedRoute>
               <SidebarLayout>
@@ -167,7 +161,7 @@ function App() {
           }
         />
         <Route
-          path="/ordersList"
+          path="/order-list"
           element={
             <ProtectedRoute>
               <SidebarLayout>
@@ -177,7 +171,7 @@ function App() {
           }
         />
         <Route
-          path="/ordersdetails/:id"
+          path="/order/:id"
           element={
             <ProtectedRoute>
               <SidebarLayout>
@@ -187,7 +181,7 @@ function App() {
           }
         />
         <Route
-          path="/usersList"
+          path="/user-list"
           element={
             <ProtectedRoute>
               <SidebarLayout>
@@ -208,7 +202,6 @@ function App() {
           }
         />
       </Routes>
-
       <ToastContainer position="top-right" autoClose={3000} />
     </Router>
   );

@@ -25,7 +25,7 @@ const OrdersList = () => {
     setOrders(savedOrders);
   }, []);
 
-  const handleViewDetails = (id) => navigate(`/ordersdetails/${id}`);
+  const handleViewDetails = (id) => navigate(`/order/${id}`);
 
   // ✅ Search filter (UserName + Order ID)
   const filteredOrders = orders.filter(
