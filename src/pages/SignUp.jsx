@@ -26,16 +26,19 @@ function SignUp() {
       return;
     }
 
+    const nameParts = name.trim().split(" ");
+
     const newUser = {
-      // id: Date.now(), // unique id based on timestamp
       id: users.length + 1,
-      name,
+      first_name: nameParts[0] || "",
+      last_name: nameParts.slice(1).join(" ") || "",
       email,
       password,
-      registered: new Date().toLocaleDateString(),
-      // phone: "",
-      // address: "",
-      // orders: 0,
+      phone: "",
+      address: "",
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      avatar: "",
       role: "user",
     };
 

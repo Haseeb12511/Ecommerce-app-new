@@ -35,6 +35,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function UsersList() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMode, setDialogMode] = useState("view"); // "view" | "edit"
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [customerToDelete, setCustomerToDelete] = useState(null);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -68,12 +73,45 @@ export default function UsersList() {
     return orders.length;
   };
 
-  const getFormattedDate = (date) => {};
+  const getFormattedDate = (date) => {
+    if (!date) return "Not Provided";
+
+    const d = new Date(date);
+    return d.toLocaleString("en-US", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const handleEditCustomer = (updatedCustomer) => {
+    // purane users lao
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    const updatedUsers = storedUsers.map((u) =>
+      u.id === updatedCustomer.id ? updatedCustomer : u
+    );
+
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    setDialogOpen(false);
+  };
+
+  const handleDeleteCustomer = () => {
+    if (!customerToDelete) return;
+
+    const updated = customers.filter((c) => c.id !== customerToDelete.id);
+    localStorage.setItem("users", JSON.stringify(updated));
+
+    setDeleteDialogOpen(false);
+    setSelectedCustomer(updated);
+  };
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
-
   const handlePrevious = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
@@ -103,7 +141,7 @@ export default function UsersList() {
         </div>
       </div>
 
-      {/* Table (Desktop Only) */}
+      {/* Table */}
       <div className="hidden md:block overflow-x-auto rounded-lg border">
         <Table>
           <TableHeader className="bg-gray-100">
@@ -128,88 +166,22 @@ export default function UsersList() {
               </TableRow>
             ) : (
               currentItems.map((customer, index) => (
-                <TableRow
-                  key={customer.id || index}
-                  className="hover:bg-gray-50 transition-colors"
-                >
+                <TableRow key={customer.id || index}>
                   <TableCell className="flex items-center gap-2">
                     <Avatar>
-                      <AvatarFallback className="bg-white border">
-                        {customer.name?.charAt(0).toUpperCase()}
+                      <AvatarFallback className="bg-white">
+                        {customer.name?.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     {customer.name}
                   </TableCell>
                   <TableCell>{customer.email}</TableCell>
-                  <TableCell>{customer.created_at || "Not Provided"}</TableCell>
-                  <TableCell>{getUserOrdersCount(customer.id)}</TableCell>
-                  <TableCell className="text-center">
-                    {/* Profile Modal */}
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="cursor-pointer"
-                        >
-                          View Profile
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-lg">
-                        <DialogHeader>
-                          <DialogTitle>Customer Profile</DialogTitle>
-                        </DialogHeader>
-                        <div className="space-y-4">
-                          <p>
-                            <strong>Name:</strong> {customer.name}
-                          </p>
-                          <p>
-                            <strong>Email:</strong> {customer.email}
-                          </p>
-                          <p>
-                            <strong>Phone:</strong> {customer.phone || "—"}
-                          </p>
-                          <p>
-                            <strong>Address:</strong> {customer.address || "—"}
-                          </p>
-                          <p>
-                            <strong>Created at:</strong>{" "}
-                            {customer.created_at || "—"}
-                          </p>
-                          <p>
-                            <strong>Total Orders:</strong>
-                            {getUserOrdersCount(customer.id)}
-                          </p>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                  <TableCell>{getFormattedDate(customer.created_at)}</TableCell>
+                  <TableCell className="pl-6">
+                    {getUserOrdersCount(customer.id)}
                   </TableCell>
-                  {/* <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="outline">Actions</Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                          onClick={() => alert(`View ${customer.name}`)}
-                        >
-                          View Profile
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => alert(`Edit ${customer.name}`)}
-                        >
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="text-red-600"
-                          onClick={() => alert(`Delete ${customer.name}`)}
-                        >
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell> */}
-                  <TableCell>
+
+                  <TableCell className="text-center">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -222,18 +194,31 @@ export default function UsersList() {
 
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem
-                          onClick={() => alert(`View ${customer.name}`)}
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setSelectedCustomer(customer);
+                            setDialogMode("view");
+                            setDialogOpen(true);
+                          }}
                         >
                           View Profile
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                          onClick={() => alert(`Edit ${customer.name}`)}
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setSelectedCustomer(customer);
+                            setDialogMode("edit");
+                            setDialogOpen(true);
+                          }}
                         >
                           Edit
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                          className="text-red-600"
-                          onClick={() => alert(`Delete ${customer.name}`)}
+                          className="text-red-600 cursor-pointer"
+                          onClick={() => {
+                            setCustomerToDelete(customer);
+                            setDeleteDialogOpen(true);
+                          }}
                         >
                           Delete
                         </DropdownMenuItem>
@@ -247,81 +232,151 @@ export default function UsersList() {
         </Table>
       </div>
 
-      {/* Mobile Card View */}
-      <div className="grid grid-cols-1 gap-4 md:hidden">
-        {currentItems.length > 0 ? (
-          currentItems.map((customer, index) => (
-            <div
-              key={customer.id || index}
-              className="bg-white border rounded-lg p-4 flex flex-col justify-between shadow-sm"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <Avatar>
-                  <AvatarFallback>
-                    {customer.name?.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <h2 className="font-medium text-gray-800">{customer.name}</h2>
-                  <p className="text-sm text-gray-500">{customer.email}</p>
-                  <p className="text-xs text-gray-400">
-                    {customer.registered || "Not Provided"}
+      {/* ✅ Dialog (shared for view + edit) */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>
+              {dialogMode === "view" ? "Customer Profile" : "Edit Profile"}
+            </DialogTitle>
+          </DialogHeader>
+
+          {selectedCustomer && (
+            <div className="space-y-4">
+              {dialogMode === "view" ? (
+                <>
+                  <p>
+                    <strong>Name:</strong> {selectedCustomer.name}
                   </p>
-                </div>
-              </div>
-              <div className="flex flex-col sm:items-end gap-2">
-                {/* <p className="text-purple-600 font-bold">
-                  {getUserOrdersCount(customer.id)} Orders
-                </p> */}
-                <p>
-                  <strong>Total Orders:</strong>{" "}
-                  {getUserOrdersCount(customer.id)}
-                </p>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="cursor-pointer"
-                    >
-                      View Profile
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-lg">
-                    <DialogHeader>
-                      <DialogTitle>Customer Profile</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      <p>
-                        <strong>Name:</strong> {customer.name}
-                      </p>
-                      <p>
-                        <strong>Email:</strong> {customer.email}
-                      </p>
-                      <p>
-                        <strong>Phone:</strong> {customer.phone || "—"}
-                      </p>
-                      <p>
-                        <strong>Address:</strong> {customer.address || "—"}
-                      </p>
-                      <p>
-                        <strong>Registered:</strong>{" "}
-                        {customer.registered || "—"}
-                      </p>
-                      <p>
-                        <strong>Total Orders:</strong>{" "}
-                        {getUserOrdersCount(customer.id)}
-                      </p>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
+                  <p>
+                    <strong>Email:</strong> {selectedCustomer.email}
+                  </p>
+                  <p>
+                    <strong>Phone:</strong> {selectedCustomer.phone || "—"}
+                  </p>
+                  <p>
+                    <strong>Address:</strong> {selectedCustomer.address || "—"}
+                  </p>
+                  <p>
+                    <strong>Created at:</strong>{" "}
+                    {getFormattedDate(selectedCustomer.created_at)}
+                  </p>
+
+                  <p>
+                    <strong>Total Orders:</strong>{" "}
+                    {getUserOrdersCount(selectedCustomer.id)}
+                  </p>
+                </>
+              ) : (
+                // ✏️ Editable Form
+
+                <form
+                  className="space-y-4"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+
+                    const formData = new FormData(e.target);
+                    const updatedCustomer = {
+                      ...selectedCustomer,
+                      first_name: formData.get("first_name"),
+                      last_name: formData.get("last_name"),
+                      email: formData.get("email"),
+                      phone: formData.get("phone"),
+                      address: formData.get("address"),
+                      updated_at: new Date().toISOString(),
+                    };
+
+                    handleEditCustomer(updatedCustomer);
+                  }}
+                >
+                  <div>
+                    <label className="block text-sm font-medium">
+                      First Name
+                    </label>
+                    <Input
+                      name="first_name"
+                      defaultValue={selectedCustomer.first_name}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium">
+                      Last Name
+                    </label>
+                    <Input
+                      name="last_name"
+                      defaultValue={selectedCustomer.last_name}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium">Email</label>
+                    <Input
+                      type="email"
+                      name="email"
+                      defaultValue={selectedCustomer.email}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium">Phone</label>
+                    <Input
+                      name="phone"
+                      defaultValue={selectedCustomer.phone}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium">Address</label>
+                    <Input
+                      name="address"
+                      defaultValue={selectedCustomer.address}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full">
+                    Save Changes
+                  </Button>
+                </form>
+              )}
             </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No customers found</p>
-        )}
-      </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* 🗑️ Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent className=" w-[20rem] p-[16px]">
+          <DialogHeader className="border-2 border-l-0 border-t-0 border-r-0 pb-2">
+            <DialogTitle className="text-[16px]">Delete Customer</DialogTitle>
+          </DialogHeader>
+          <p className="text-[14px]">
+            Are you sure you want to delete{" "}
+            <strong>{customerToDelete?.name}</strong>?
+          </p>
+          <div className="flex justify-end gap-3 mt-4">
+            <Button
+              variant="outline"
+              className="cursor-pointer"
+              onClick={() => setDeleteDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              className="cursor-pointer"
+              onClick={handleDeleteCustomer}
+            >
+              Delete
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* ✅ Pagination */}
       {totalPages > 1 && (
