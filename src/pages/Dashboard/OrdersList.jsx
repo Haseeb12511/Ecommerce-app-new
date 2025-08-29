@@ -113,7 +113,6 @@ const OrdersList = () => {
                       onClick={() => handleViewDetails(order.id)}
                       size="sm"
                       variant="outline"
-                      className="cursor-pointer"
                     >
                       Details
                     </Button>
@@ -160,7 +159,6 @@ const OrdersList = () => {
                   onClick={() => handleViewDetails(order.id)}
                   size="sm"
                   variant="outline"
-                  className="cursor-pointer"
                 >
                   Details
                 </Button>

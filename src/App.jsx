@@ -17,7 +17,7 @@ import NavbarLayout from "./components/NavbarLayout";
 import "react-pro-sidebar/dist/css/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import SidebarLayout from "./components/SidebarLayout";
-import Settings from "./pages/Settings";
+import Settings from "./pages/Dashboard/Settings";
 import OrdersList from "./pages/Dashboard/OrdersList";
 import OrdersDetails from "./components/dashboard/OrderDetails";
 import ProductAdd from "./components/dashboard/ProductAdd";

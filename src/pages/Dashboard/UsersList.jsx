@@ -184,10 +184,7 @@ export default function UsersList() {
                   <TableCell className="text-center">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          className="h-8 w-8 p-0 cursor-pointer"
-                        >
+                        <Button variant="ghost" className="h-8 w-8 p-0">
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -362,16 +359,11 @@ export default function UsersList() {
           <div className="flex justify-end gap-3 mt-4">
             <Button
               variant="outline"
-              className="cursor-pointer"
               onClick={() => setDeleteDialogOpen(false)}
             >
               Cancel
             </Button>
-            <Button
-              variant="destructive"
-              className="cursor-pointer"
-              onClick={handleDeleteCustomer}
-            >
+            <Button variant="destructive" onClick={handleDeleteCustomer}>
               Delete
             </Button>
           </div>

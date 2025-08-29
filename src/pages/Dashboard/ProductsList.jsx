@@ -90,7 +90,7 @@ const AllProductsList = () => {
           <Button
             variant="default"
             onClick={handleAddProduct}
-            className="flex items-center gap-1 cursor-pointer"
+            className="flex items-center gap-1"
           >
             <Plus className="w-4 h-4" />
             Add Product
@@ -164,15 +164,10 @@ const AllProductsList = () => {
                   </TableCell>
                   <TableCell className="pl-4">{product.rating ?? 0}</TableCell>
                   <TableCell className="flex justify-center gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="cursor-pointer"
-                    >
+                    <Button size="sm" variant="outline">
                       <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
-                      className="cursor-pointer"
                       size="sm"
                       variant="destructive"
                       onClick={() => handleDelete(product.id)}

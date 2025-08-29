@@ -116,7 +116,7 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Button
                     variant="ghost"
-                    className="text-gray-700 hover:bg-gray-100 flex space-x-2 justify-start items-center transition-all duration-300 ease-in-out"
+                    className="text-gray-700 hover:bg-gray-100 flex space-x-2 justify-start items-center transition-all duration-300 ease-in-out cursor-pointer"
                     onClick={handleLogout}
                   >
                     <LogOut className="transition-all duration-300 ease-in-out" />

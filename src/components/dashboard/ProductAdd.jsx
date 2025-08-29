@@ -236,14 +236,14 @@ const ProductAdd = () => {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button
               variant="default"
-              className="flex-1 cursor-pointer"
+              className="flex-1"
               onClick={handleAddProduct}
             >
               Add product
             </Button>
             <Button
               variant="secondary"
-              className="flex-1 cursor-pointer"
+              className="flex-1"
               // onClick={() => toast.info("Saved draft (not implemented)")}
             >
               Save draft
